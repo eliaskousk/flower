@@ -10,6 +10,8 @@ from transformers import logging
 from huggingface_example.task import get_model, load_data, test_fn, train_fn
 
 warnings.filterwarnings("ignore", category=FutureWarning)
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", category=UserWarning)
 
 # To mute warnings reminding that we need to train the model to a downstream task
 # This is something this example does.

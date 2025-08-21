@@ -22,7 +22,7 @@ class CustomFedAvg(FedAvg):
     results to W&B if enabled.
     """
 
-    def __init__(self, run_config: UserConfig, use_wandb: bool, *args, **kwargs):
+    def __init__(self, run_config: UserConfig, use_wandb: bool, wandb_api_key: str, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Create a directory where to save results from this run
@@ -30,7 +30,7 @@ class CustomFedAvg(FedAvg):
         self.use_wandb = use_wandb
         # Initialise W&B if set
         if use_wandb:
-            self._init_wandb_project()
+            self._init_wandb_project(wandb_api_key)
 
         # Keep track of best acc
         self.best_acc_so_far = 0.0
@@ -38,8 +38,9 @@ class CustomFedAvg(FedAvg):
         # A dictionary to store results as they come
         self.results = {}
 
-    def _init_wandb_project(self):
+    def _init_wandb_project(self, wandb_api_key: str):
         # init W&B
+        wandb.login(key=wandb_api_key)
         wandb.init(project=PROJECT_NAME, name=f"{str(self.run_dir)}-ServerApp")
 
     def _store_results(self, tag: str, results_dict):

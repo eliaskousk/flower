@@ -16,6 +16,8 @@ from huggingface_example.task import (
 )
 
 warnings.filterwarnings("ignore", category=FutureWarning)
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", category=UserWarning)
 
 # To mute warnings reminding that we need to train the model to a downstream task
 # This is something this example does.

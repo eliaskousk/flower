@@ -27,11 +27,12 @@ clientapp = "pytorch_example.client_app:app"
 
 [tool.flwr.app.config]
 num-server-rounds = 10
-fraction-fit = 0.25
-fraction-evaluate = 0.5
-local-epochs = 1
+fraction-fit = 1.0
+fraction-evaluate = 1.0
+local-epochs = 3
 server-device = "cpu"
 use-wandb = true
+wandb-api-key = "a2810e4bfe004024a62aa7ca32fa6f010353ac88"
 
 [tool.flwr.federations]
 default = "local-sim"
@@ -44,3 +45,7 @@ options.backend.client-resources.num-gpus = 0.0 # ratio of VRAM a ClientApp has 
 options.num-supernodes = 50
 options.backend.client-resources.num-cpus = 2
 options.backend.client-resources.num-gpus = 0.25
+
+[tool.flwr.federations.local-deployment]
+address = "127.0.0.1:9093"
+insecure = true

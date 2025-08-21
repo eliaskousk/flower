@@ -80,6 +80,7 @@ def server_fn(context: Context):
     strategy = CustomFedAvg(
         run_config=context.run_config,
         use_wandb=context.run_config["use-wandb"],
+        wandb_api_key=context.run_config["wandb-api-key"],
         fraction_fit=fraction_fit,
         fraction_evaluate=fraction_eval,
         initial_parameters=parameters,

@@ -19,8 +19,8 @@ class DownloadCorpora:
 
         fullpath = os.path.join(download_dir, corpus)
         # if the path already exists then skip corpus downloading
-        if os.path.exists(fullpath):
-            return fullpath
+        # if os.path.exists(fullpath):
+        #    return fullpath
         if corpus != "statpearls":
             os.system(
                 "GIT_LFS_SKIP_SMUDGE=1 git clone https://huggingface.co/datasets/MedRAG/{:s} {:s}".format(
@@ -31,11 +31,11 @@ class DownloadCorpora:
             os.system("cd {:s} && git lfs pull && cd ..".format(fullpath))
         else:
             # Download directly from the NIH repo
-            os.system(
-                "wget https://ftp.ncbi.nlm.nih.gov/pub/litarch/3d/12/statpearls_NBK430685.tar.gz -P {:s}".format(
-                    fullpath
-                )
-            )
+            # os.system(
+            #     "wget https://ftp.ncbi.nlm.nih.gov/pub/litarch/3d/12/statpearls_NBK430685.tar.gz -P {:s}".format(
+            #         fullpath
+            #     )
+            # )
             os.system(
                 "tar -xzvf {:s} -C {:s}".format(
                     os.path.join(fullpath, "statpearls_NBK430685.tar.gz"), fullpath

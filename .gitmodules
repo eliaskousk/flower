@@ -1,0 +1,3 @@
+[submodule "LightRAG"]
+	path = LightRAG
+	url = git@github.com:eliaskousk/LightRAG.git

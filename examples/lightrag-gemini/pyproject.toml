@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "lightrag-gemini"
+version = "1.0.0"
+description = "Federated LightRAG with Gemini 2.5 Flash Lite via VertexAI"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+dependencies = [
+    "flwr[simulation]>=1.20.0",
+    "numpy>=1.26.0,<2",
+    "google-genai>=0.7.2",
+    "google-api-core>=2.25.1",
+    "sentencepiece>=0.1.99",
+    "python-dotenv>=1.0.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+
+[tool.flwr.app]
+publisher = "flwr"
+
+[tool.flwr.app.components]
+serverapp = "lightrag_gemini.server_app:app"
+clientapp = "lightrag_gemini.client_app:app"
+
+[tool.flwr.app.config]
+# LightRAG configuration
+llm-model = "gemini-2.5-flash-lite"
+embedding-model = "gemini-embedding-001"
+# VertexAI configuration
+use-vertex-ai = true
+google-cloud-project = "stromasys-projects"
+google-cloud-location = "us-central1"
+# Number of documents to process per client
+docs-per-client = 10
+# Query modes: naive, local, global, hybrid
+query-mode = "hybrid"
+# Number of top results to retrieve
+top-k = 5
+# Enable verbose logging
+verbose = false
+
+[tool.flwr.federations]
+default = "local-simulation"
+
+[tool.flwr.federations.local-simulation]
+options.num-supernodes = 3
+options.backend.client-resources.num-cpus = 2
+options.backend.client-resources.num-gpus = 0

@@ -1,0 +1,5 @@
+results/
+*.bak
+.venv/
+.flower/
+__pycache__/
